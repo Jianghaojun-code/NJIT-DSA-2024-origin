@@ -56,7 +56,6 @@ public class SSN {
     * The method MUST NOT throw exceptions.
     * 
     * @param ssn The SSN to verify.
-    * @return See {@link SSN.Result} enum for possible return values.
     */
    public static Result verifySSN(String ssn) {
       // Pessimists never get disappointed, so let's assume invalid SSN.
@@ -100,6 +99,7 @@ public class SSN {
                String personNumberString = ssn.substring(PERSON_CODE_INDEX_START,
                      PERSON_CODE_INDEX_START + PERSON_CODE_LENGTH);
                // Next checking the three digit number after the century separator.
+               if(personNumberString.matches("[0-9]+")){
                Integer personNumber = Integer.parseInt(personNumberString);
                if (personNumber > 0) {
                   // If it was a positive integer, then calculate the checksum.
@@ -122,6 +122,8 @@ public class SSN {
             }
          }
       }
+      return result;
+   }
       return result;
    }
 }
