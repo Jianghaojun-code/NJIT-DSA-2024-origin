@@ -88,10 +88,11 @@ public class KeyValueBSearchTree<K extends Comparable<K>, V> implements Dictiona
 
     @Override
     public void compress() throws OutOfMemoryError {
-        // Nothing to do here, since BST does not use extra space like array-based structures.
+        // Nothing to do here, since BST does not use extra space like array-based
+        // structures.
     }
 
     private int calculateHash(K key) {
-        return key.hashCode(); 
+        return key.hashCode();
     }
 }

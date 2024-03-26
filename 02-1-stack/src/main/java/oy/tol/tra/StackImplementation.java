@@ -12,8 +12,7 @@ public class StackImplementation<E> implements StackInterface<E> {
     }
 
     public StackImplementation(int capacity) throws StackAllocationException {
-        if (capacity < 2)
-         {
+        if (capacity < 2) {
             throw new StackAllocationException("The size must be at least 2.");
         }
 
@@ -57,8 +56,7 @@ public class StackImplementation<E> implements StackInterface<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E pop() throws StackIsEmptyException {
-        if (isEmpty())
-         {
+        if (isEmpty()) {
             throw new StackIsEmptyException("Cannot pop from an empty stack.");
         }
 
