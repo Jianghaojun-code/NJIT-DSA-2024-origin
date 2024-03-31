@@ -31,6 +31,10 @@ public class StackImplementation<E> implements StackInterface<E> {
 
     @Override
     public void push(E element) throws StackAllocationException, NullPointerException {
+        
+        if (element == null) {
+            throw new NullPointerException("the stack is empty.");
+        }
         if (currentIndex + 1 >= capacity) {
             int bigCapacity = capacity * 2;
             try {
@@ -45,9 +49,6 @@ public class StackImplementation<E> implements StackInterface<E> {
             }
         }
 
-        if (element == null) {
-            throw new NullPointerException("the stack is empty.");
-        }
 
         currentIndex++;
         itemArray[currentIndex] = element;
@@ -57,14 +58,12 @@ public class StackImplementation<E> implements StackInterface<E> {
     @Override
     public E pop() throws StackIsEmptyException {
         if (isEmpty()) {
-            throw new StackIsEmptyException("Cannot pop from an empty stack.");
+           throw new StackIsEmptyException("Stack is empty.");
         }
-
-        E Element = (E) itemArray[currentIndex];
-        currentIndex--;
-
-        return Element;
-    }
+        E element = (E) itemArray[currentIndex];
+        itemArray[currentIndex--] = null; 
+        return element;
+     }
 
     @SuppressWarnings("unchecked")
     @Override

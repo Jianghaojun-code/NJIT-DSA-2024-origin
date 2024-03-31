@@ -37,6 +37,9 @@ public class QueueImplementation<E> implements QueueInterface<E> {
 
     @Override
     public void enqueue(E element) throws QueueAllocationException, NullPointerException {
+        if (element == null) {
+            throw new NullPointerException("Cannot enqueue null element.");
+        }
         if (size() >= capacity) {
           
             int bigCapacity = capacity * 2;
@@ -56,10 +59,6 @@ public class QueueImplementation<E> implements QueueInterface<E> {
             }
         }
 
-        if (element == null) {
-            throw new NullPointerException("Cannot enqueue null element.");
-        }
-
         rear = (rear + 1) % capacity;
         itemArray[rear] = element;
         size++;
@@ -68,16 +67,14 @@ public class QueueImplementation<E> implements QueueInterface<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E dequeue() throws QueueIsEmptyException {
-        if (isEmpty()) 
-        {
-            throw new QueueIsEmptyException("Cannot dequeue from an empty queue.");
+        if (isEmpty()) {
+            throw new QueueIsEmptyException("Queue is empty!");
         }
-
-        E Element = (E) itemArray[front];
-        front = (front + 1) % capacity;
+        E element = (E) itemArray[front];
+        itemArray[front] = null;
+        front = (front + 1) % itemArray.length;
         size--;
-
-        return Element;
+        return element;
     }
 
     @SuppressWarnings("unchecked")
