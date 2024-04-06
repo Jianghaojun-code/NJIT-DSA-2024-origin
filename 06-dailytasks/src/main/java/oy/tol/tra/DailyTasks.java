@@ -14,7 +14,6 @@ public class DailyTasks {
    private static final int TASK_DELAY_IN_SECONDS = 1 * 1000;
 
    private DailyTasks() throws QueueAllocationException {
-       // Step 1: Create a queue for daily tasks
        dailyTaskQueue = QueueFactory.createStringQueue();
    }
 
@@ -29,20 +28,20 @@ public class DailyTasks {
 
    private void run() {
        try {
-           readTasks(); // Step 2: Read tasks for today
-           timer = new Timer(); // Step 3: Create a Java Timer object
+           readTasks();
+           timer = new Timer(); 
            timer.scheduleAtFixedRate(new TimerTask() {
                @Override
                public void run() {
-                   if (!dailyTaskQueue.isEmpty()) { // Step 4.1.1: Check if there are tasks in the queue
+                   if (!dailyTaskQueue.isEmpty()) { 
                        try {
-                           String task = dailyTaskQueue.dequeue(); // Step 4.1.2: Dequeue and print the task
+                           String task = dailyTaskQueue.dequeue(); 
                            System.out.println("Task for today: " + task);
                        } catch (QueueIsEmptyException e) {
                            System.out.println("Error dequeueing task: " + e.getMessage());
                        }
                    } else {
-                       timer.cancel(); // Step 4.1.3: Cancel the timer if no tasks are left
+                       timer.cancel(); 
                    }
                }
            }, TASK_DELAY_IN_SECONDS, TASK_DELAY_IN_SECONDS);
@@ -56,11 +55,11 @@ public class DailyTasks {
        String[] allTasks = tasks.split("\\r?\\n");
        for (String task : allTasks) {
            try {
-               dailyTaskQueue.enqueue(task); // Enqueue the task to the Queue
+               dailyTaskQueue.enqueue(task); 
            } catch (QueueAllocationException | NullPointerException e) {
                System.out.println("Error enqueueing task: " + e.getMessage());
            }
        }
-       System.out.println("Number of tasks in the queue: " + dailyTaskQueue.size()); // Print the number of tasks
+       System.out.println("Number of tasks in the queue: " + dailyTaskQueue.size()); 
    }
 }
